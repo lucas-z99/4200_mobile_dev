@@ -3,7 +3,7 @@ import psycopg2 as adapter
 import os
 
 # AWS
-host = "db-inst.c7wykyqioj0t.us-east-2.rds.amazonaws.com"  # endpoint
+host = "db-inst.c7wykyqioj0t.us-east-2.rds.amazonaws.com"
 dbname = "pokemonDB"
 username = "redandgreen"
 port = "5432"
@@ -14,20 +14,19 @@ _cyan = '\033[96m'
 _gray = '\033[90m'
 
 
-def do_something(c: adapter.extensions.ConnectionInfo):
-    print("\nConnect success! (x to exit)")
+def do_something(connect: adapter.extensions.ConnectionInfo):
     while True:
-        _input = input(_cyan + "\nEnter query:\n" + _reset)
-        if _input == "x":
-            break
+
+        _input = input(_cyan + "Enter query:\n" + _reset)
+
         try:
-            cursor = c.cursor()
+            cursor = connect.cursor()
             cursor.execute(_input)
-            c.commit()
+            connect.commit()
 
             result = cursor.fetchall()  # print SELECT result, usually empty
-            for row in result:
-                print(row)
+            for r in result:
+                print(r)
 
         except Exception as e:
             print(_gray + f"{e}" + _reset)
@@ -38,6 +37,8 @@ try:
         "https://raw.githubusercontent.com/lucas-z99/td-Xulhezm5lFgt5ocWpxPVYFCxK-b-6U44kgbNzV/main/v579LteW%40l7TA2zNiHqS7vyFVsktv.txt").read().decode('utf-8')[::11]} port={port}"
 
     connect = adapter.connect(connect_string)
+    print("\nConnect success!\n")
+
     do_something(connect)
     connect.close()
 
