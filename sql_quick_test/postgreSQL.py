@@ -18,7 +18,8 @@ _gray = '\033[90m'
 def do_something(connect: adapter.extensions.ConnectionInfo):
     while True:
 
-        _input = input(_cyan + "Enter query:\n" + _reset)
+        print(_cyan + "Enter query:" + _reset)
+        _input = input()
 
         try:
             cursor = connect.cursor()
@@ -34,9 +35,6 @@ def do_something(connect: adapter.extensions.ConnectionInfo):
 
 
 try:
-    # connect_string = f"host={host} dbname={dbname} user={username} password={urlopen(
-    #     "https://raw.githubusercontent.com/lucas-z99/td-Xulhezm5lFgt5ocWpxPVYFCxK-b-6U44kgbNzV/main/v579LteW%40l7TA2zNiHqS7vyFVsktv.txt").read().decode('utf-8')[::11]} port={port}"
-
     connect_string = f"host={host} dbname={dbname} user={
         username} password={password} port={port}"
 
@@ -48,3 +46,18 @@ try:
 
 except Exception as e:
     print(e)
+
+
+#   SQL cheat sheet   -------------------------------------------------------------------------------
+
+# ALTER TABLE ttt ADD COLUMN "type1" TEXT
+# ALTER TABLE ttt DROP COLUMN "number"
+# ALTER TABLE ttt RENAME COLUMN "def" TO "defense"
+
+# print col names
+# SELECT column_name FROM information_schema.columns WHERE table_name = 'ttt' ORDER BY ordinal_position
+
+
+
+
+
