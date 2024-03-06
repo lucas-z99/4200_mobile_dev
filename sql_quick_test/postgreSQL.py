@@ -54,10 +54,5 @@ except Exception as e:
 # ALTER TABLE ttt DROP COLUMN "number"
 # ALTER TABLE ttt RENAME COLUMN "def" TO "defense"
 
-# print col names
+# print all col names
 # SELECT column_name FROM information_schema.columns WHERE table_name = 'ttt' ORDER BY ordinal_position
-
-
-
-
-
