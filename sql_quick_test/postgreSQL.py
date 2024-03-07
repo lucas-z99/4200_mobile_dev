@@ -50,9 +50,12 @@ except Exception as e:
 
 #   SQL cheat sheet   -------------------------------------------------------------------------------
 
+# show col names
+# SELECT column_name FROM information_schema.columns WHERE table_name = 'ttt' ORDER BY ordinal_position
+
 # ALTER TABLE ttt ADD COLUMN "type1" TEXT
 # ALTER TABLE ttt DROP COLUMN "number"
 # ALTER TABLE ttt RENAME COLUMN "def" TO "defense"
 
-# print all col names
-# SELECT column_name FROM information_schema.columns WHERE table_name = 'ttt' ORDER BY ordinal_position
+# UPDATE ttt SET attack = 999 WHERE id = 123
+# DELETE FROM ttt WHERE id = 123
