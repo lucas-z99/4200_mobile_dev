@@ -1,4 +1,5 @@
 from urllib.request import urlopen 
+import requests
 import json
 
 base_url = 'https://pokeapi.co/api/v2/pokemon/'
@@ -23,3 +24,23 @@ class Pokemon:
 # Get the data from the APIs for each pokemon and its description and store it as Pokemon object in a list
 pokemon_data_list = []    
   
+for i in range(151):
+  response = requests.get(pokemon_url_list[i])
+  pokemon = response.json()
+  response_description = requests.get(pokemon_url_description_list[i])
+  pokemon_description = response_description.json()
+  
+  name = pokemon['forms'][0]['name']
+  types = [pokemon['types'][0]['type']['name']]
+  if len(pokemon['types']) > 1:
+    types.append(pokemon['types'][1]['type']['name'])
+  description = pokemon_description['flavor_text_entries'][0]['flavor_text']
+  height = pokemon['height']
+  weight = pokemon['weight']
+  image_url = pokemon['sprites']['other']['official-artwork']['front_default']
+  
+  pokemon_data_list.append(Pokemon(name, types, description, height, weight, image_url))
+
+# Next step: store in sql:
+for i in range(151):
+  print(pokemon_data_list[i].name)
