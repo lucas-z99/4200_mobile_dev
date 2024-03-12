@@ -8,10 +8,10 @@ public class PokeServer_Example {
         System.out.println("  ----------   test start   ----------\n");
 
         PokeServer.getPokemon(7, this::onSuccess, this::onFail);
-        PokeServer.getPokemon(123, this::onSuccess, this::onFail); // not exist
+//        PokeServer.getPokemon(123, this::onSuccess, this::onFail); // not exist
 
-        PokeServer.getPokemon("Charizard", this::onSuccess, this::onFail);
-        PokeServer.getPokemon("bla bla bla", this::onSuccess, this::onFail); // not exist
+//        PokeServer.getPokemon("Charizard", this::onSuccess, this::onFail);
+//        PokeServer.getPokemon("bla bla bla", this::onSuccess, this::onFail); // not exist
 
     }
 
