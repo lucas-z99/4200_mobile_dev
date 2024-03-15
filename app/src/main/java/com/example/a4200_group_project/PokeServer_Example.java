@@ -7,11 +7,10 @@ public class PokeServer_Example {
     void example() {
         System.out.println("  ----------   test start   ----------\n");
 
-        PokeServer.getPokemon(7, this::onSuccess, this::onFail);
-//        PokeServer.getPokemon(123, this::onSuccess, this::onFail); // not exist
-
-//        PokeServer.getPokemon("Charizard", this::onSuccess, this::onFail);
-//        PokeServer.getPokemon("bla bla bla", this::onSuccess, this::onFail); // not exist
+        PokeServer.getPokemon(4, this::onSuccess, this::onFail);
+        PokeServer.getPokemon(123, this::onSuccess, this::onFail); // not exist
+        PokeServer.getPokemon("venusaur", this::onSuccess, this::onFail);
+        PokeServer.getPokemon("bla bla bla", this::onSuccess, this::onFail); // not exist
 
     }
 

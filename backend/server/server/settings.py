@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w_zvr(qsh0vgxn$xk@a+l%(=m)k3mvnd9x9jhc2s7)3n_gj=3w'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pokemonDB',
-        'USER': 'redandgreen',
-        'PASSWORD': 'MA2DF7lLx4!THMAgg$ccWeeYgBKG3wcyzJAKLcge_rDcDn-5hsA4DG_26BE5CWoD',
-        'HOST': 'db-inst.c7wykyqioj0t.us-east-2.rds.amazonaws.com',  # endpoint
-        'PORT': '5432',
+        'ENGINE': '',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',  # endpoint
+        'PORT': '',
     }
 }
 
