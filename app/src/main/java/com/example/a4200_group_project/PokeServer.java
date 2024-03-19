@@ -43,7 +43,6 @@ public class PokeServer {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String content = response.body().string();
-
                 if (response.isSuccessful()) {
                     if (onSuccess != null) onSuccess.accept(content);
                 } else {
@@ -60,6 +59,4 @@ public class PokeServer {
         });
 
     }
-
-
 }
