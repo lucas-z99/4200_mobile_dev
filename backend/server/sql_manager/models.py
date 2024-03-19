@@ -15,13 +15,13 @@ class PokeSQL(models.Model):
         db_table = 'ttt'
         
     id = models.IntegerField(primary_key=True)
-    name = models.CharField()
-    type0 = models.CharField()
-    type1 = models.CharField(blank=True, null=True)
-    description = models.CharField()
+    name = models.CharField(max_length=50)
+    type0 = models.CharField(max_length=50)
+    type1 = models.CharField(blank=True, null=True, max_length=50)
+    description = models.CharField(max_length=250)
     height = models.IntegerField()
     weight = models.IntegerField()
-    image_url = models.CharField()
+    image_url = models.CharField(max_length=50)
 
     # dict for easy JSON
     def to_dict(self):
