@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     String weight;
     String image_url;
     String jsonResponse;
-    Intent infoPage = new Intent(MainActivity.this, PokemonInfo.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -18,7 +18,6 @@
 
         android:usesCleartextTraffic="true"> <!-- clear text traffic is disabled by default? -->
 
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -28,10 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PokemonInfo"
-            >
-        </activity>
+        <activity android:name=".PokemonInfo"
+            ></activity>
+
     </application>
 
 </manifest>
