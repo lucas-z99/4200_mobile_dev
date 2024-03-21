@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,12 +21,16 @@ public class MainActivity extends AppCompatActivity {
     String weight;
     String image_url;
     String jsonResponse;
+    Intent infoPage = new Intent(MainActivity.this, PokemonInfo.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         fetchAndSetPokemonData(pokemonId);
+
+        // TODO: This line crashes app
+        startActivity(new Intent(MainActivity.this, PokemonInfo.class));
     }
 
     public void fetchAndSetPokemonData(int id){
@@ -57,11 +62,6 @@ public class MainActivity extends AppCompatActivity {
         updatePokeData();
         updateSharedPreferences();
         updateViews();
-
-//      Testing before having main page button for this feature.
-        //TODO: Fix this
-        Intent intent = new Intent(MainActivity.this, PokemonInfo.class);
-        startActivity(intent);
     }
 
     // Update pokemon views

@@ -27,8 +27,9 @@ public class PokemonInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("PokemonInfo start");
         setContentView(R.layout.pokemon_info);
-
+        System.out.println("PokemonInfo setContentView");
         // Fetch all views by id.
         pokeId = findViewById(R.id.pokeId);
         pokeImage = findViewById(R.id.pokeImage);
@@ -39,11 +40,11 @@ public class PokemonInfo extends AppCompatActivity {
         pokeHeight = findViewById(R.id.pokeHeight);
         pokeWeight = findViewById(R.id.pokeWeight);
 
-        try {
-            setPokemonDataToView();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            setPokemonDataToView();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void setPokemonDataToView() throws IOException {
