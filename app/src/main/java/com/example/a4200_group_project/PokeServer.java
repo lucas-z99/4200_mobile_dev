@@ -23,15 +23,16 @@ public class PokeServer {
     //   public   ----------------------------------------------------------------
 
     public static void getPokemon(int id, Consumer<String> onSuccess, Consumer<Exception> onFail) {
-        _server_query("http://18.216.183.227:8000/pokemon/" + id + "/", onSuccess, onFail);
+        _server_query("http://"+serverIP+"/pokemon/" + id + "/", onSuccess, onFail);
     }
 
     public static void getPokemon(String name, Consumer<String> onSuccess, Consumer<Exception> onFail) {
-        _server_query("http://18.216.183.227:8000/pokemon/name/" + name, onSuccess, onFail);
+        _server_query("http://"+serverIP+"/pokemon/name/" + name, onSuccess, onFail);
     }
 
 
     //   private   ----------------------------------------------------------------
+    private static final String serverIP = "18.220.20.157:8000";
 
     private static void _server_query(String _url, Consumer<String> onSuccess, Consumer<Exception> onFail) {
 
