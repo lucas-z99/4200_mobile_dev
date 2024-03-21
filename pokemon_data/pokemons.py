@@ -63,6 +63,7 @@ def fetch_data(index: int, url: str, url_description: str):
 #   fetch all with threads   -----------------------------------------------------
 threads = []
 query_list = []
+start_count = 0
 
 for i in range(count):
     index = i + 1  # prevent late binding ruins our index
@@ -75,20 +76,23 @@ for i in range(count):
         ),
     )
     threads.append(t)
-
-
-fetch_count = 0
-for t in threads:
     t.start()  # no race?
-    fetch_count += 1
-    print(f"\rfetching data... {fetch_count}", end="")
+    start_count += 1
+    print(f"\rfetching data... {start_count}", end="")
+
+
+# for t in threads:
+#     t.start()  # no race?
+#     fetch_count += 1
+#     print(f"\rfetching data... {fetch_count}", end="")
 
 
 #   back to main thread   -----------------------------------------------------
 for t in threads:
     t.join()
 
-query_list.sort(key=lambda x: x[0])  # sort by index, so it's less ugly
+# sort by index, so it's less ugly
+query_list.sort(key=lambda x: x[0])
 
 if generate_file:
     print("\nwrite to file...")
