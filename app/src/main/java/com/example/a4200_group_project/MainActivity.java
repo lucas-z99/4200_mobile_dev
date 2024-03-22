@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         fetchAndSetPokemonData(pokemonId);
 
-        // TODO: This line crashes app
-        startActivity(new Intent(MainActivity.this, PokemonInfo.class));
+
     }
 
     public void fetchAndSetPokemonData(int id){
@@ -38,19 +37,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // For keeping track of pokemon data across pages.
-    public void updateSharedPreferences(){
-        System.out.println("UpdateSharedPreferences");
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor spe = sp.edit();
-        spe.putString("id", String.valueOf(pokemonId));
-        spe.putString("name", name);
-        spe.putString("description", description);
-        spe.putString("type1", type1);
-        spe.putString("type2", type2);
-        spe.putString("height", height);
-        spe.putString("weight", weight);
-        spe.putString("image_url", image_url);
-        spe.apply();
+    public void goToPokeInfoPageWithData(){
+        Intent pokeInfoPage = new Intent(this, PokemonInfo.class);
+        pokeInfoPage.putExtra("name", name);
+        pokeInfoPage.putExtra("id", pokemonId);
+        pokeInfoPage.putExtra("description", description);
+        pokeInfoPage.putExtra("type1", type1);
+        pokeInfoPage.putExtra("type2", type2);
+        pokeInfoPage.putExtra("height", height);
+        pokeInfoPage.putExtra("weight", weight);
+        pokeInfoPage.putExtra("image_url", image_url);
+        startActivity(pokeInfoPage);
     }
 
     // Update Pokemon date on successful request
@@ -59,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(content);
         jsonResponse = content;
         updatePokeData();
-        updateSharedPreferences();
         updateViews();
     }
 
@@ -86,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             weight = String.valueOf(jsonObj.get("weight"));
             image_url = (String) jsonObj.get("image_url");
             System.out.println("UpdatePokeData Finished");
+            goToPokeInfoPageWithData();
         } catch (JSONException e) {
             System.out.println("UpdatePokeData Failed");
             throw new RuntimeException(e);

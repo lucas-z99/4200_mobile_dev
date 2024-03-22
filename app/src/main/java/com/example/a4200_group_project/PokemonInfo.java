@@ -3,6 +3,7 @@ package com.example.a4200_group_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.squareup.picasso.Picasso;
+
 public class PokemonInfo extends AppCompatActivity {
     ImageView pokeImage;
     TextView pokeId;
@@ -22,6 +25,7 @@ public class PokemonInfo extends AppCompatActivity {
     TextView pokeDescription;
     TextView pokeHeight;
     TextView pokeWeight;
+
 
 
     @Override
@@ -37,27 +41,33 @@ public class PokemonInfo extends AppCompatActivity {
         pokeName = findViewById(R.id.pokeName);
         pokeType1 = findViewById(R.id.pokeType1);
         pokeType2 = findViewById(R.id.pokeType2);
-        pokeHeight = findViewById(R.id.pokeHeight);
+        pokeHeight = findViewById(R.id.height);
         pokeWeight = findViewById(R.id.pokeWeight);
 
-//        try {
-//            setPokemonDataToView();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            setPokemonDataToView();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void setPokemonDataToView() throws IOException {
-        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
-        pokeName.setText(sp.getString("name", null));
-        pokeId.setText(sp.getString("id", null));
-        pokeDescription.setText(sp.getString("description", null));
-        pokeType1.setText(sp.getString("type1", null));
-        pokeType2.setText(sp.getString("type2", null));
-        pokeHeight.setText(sp.getString("height", null));
-        pokeWeight.setText(sp.getString("weight", null));
 
+    public void setPokemonDataToView() throws IOException {
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        assert extras != null;
+        pokeName.setText(extras.getString("name", null));
+        pokeId.setText(String.valueOf(extras.getInt("id", 1)));
+        pokeDescription.setText(extras.getString("description", null));
+        pokeType1.setText(extras.getString("type1", null));
+        pokeType2.setText(extras.getString("type2", null));
+        pokeHeight.setText(extras.getString("height", null));
+        pokeWeight.setText(extras.getString("weight", null));
+
+        System.out.println("PokeInfo:" + extras.getString("description", null));
         // https://stackoverflow.com/questions/18953632/how-to-set-image-from-url-for-imageview
-        pokeImage.setImageBitmap(BitmapFactory.decodeStream(new URL(sp.getString("image_url", null)).openConnection().getInputStream()));
+        Picasso.get()
+                .load(extras.getString("image_url", null))
+                .into(pokeImage);
     }
 }
