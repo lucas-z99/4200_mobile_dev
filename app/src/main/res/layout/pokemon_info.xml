@@ -107,22 +107,24 @@
                             android:layout_height="match_parent"
                             android:text="Normal"
                             android:gravity="center"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp"
+                            android:textColor="@color/black"/>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/pokeType2Card"
                         android:layout_height="30dp"
                         android:layout_width="0dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="10dp"
-                        android:layout_weight="1"
-                        >
+                        android:layout_weight="1">
                         <TextView
                             android:id="@+id/pokeType2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Flying"
                             android:gravity="center"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp"
+                            android:textColor="@color/black" />
                     </androidx.cardview.widget.CardView>
                 </TableRow>
             </TableLayout>
@@ -166,12 +168,21 @@
         android:layout_marginHorizontal="20dp"
         android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/backbutton"
+            android:src="@drawable/back_arrow" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cardCornerRadius="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginHorizontal="5dp"
             app:cardBackgroundColor="@color/lightGrey">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -186,11 +197,11 @@
                     android:textSize="20sp"
                     android:layout_marginBottom="5dp" />
                 <TextView
-                    android:id="@+id/height"
+                    android:id="@+id/pokeHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="Some Height"
+                    android:text="Tall"
                     android:textSize="20sp"
                     />
             </LinearLayout>
@@ -201,7 +212,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cardCornerRadius="20dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             app:cardBackgroundColor="@color/lightGrey">
 
             <LinearLayout
@@ -210,7 +221,6 @@
                 android:orientation="vertical"
                 android:padding="20dp">
                 <TextView
-                    android:id="@+id/pokeHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
