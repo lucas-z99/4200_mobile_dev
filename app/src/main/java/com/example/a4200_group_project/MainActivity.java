@@ -1,14 +1,28 @@
 package com.example.a4200_group_project;
 
+import static android.provider.MediaStore.Images.Media.getBitmap;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
     String weight;
     String image_url;
     String jsonResponse;
+    ImageView pokeImage;
+    TextView pokeName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.pokedex_intro);
+        pokeImage = findViewById(R.id.pokeImage);
+        pokeName = findViewById(R.id.pokeName);
         fetchAndSetPokemonData(pokemonId);
 
 
@@ -33,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void fetchAndSetPokemonData(int id){
         PokeServer.getPokemon(id, this::onSuccess, this::onFail);
-
     }
+
 
     // For keeping track of pokemon data across pages.
     public void goToPokeInfoPageWithData(){
@@ -56,16 +73,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(content);
         jsonResponse = content;
         updatePokeData();
-        updateViews();
-    }
-
-    // Update pokemon views
-    public void updateViews(){
-        System.out.println("updateViews");
-        System.out.println(pokemonId);
-        System.out.println(name);
-        System.out.println(description);
-        System.out.println(image_url);
     }
 
     public void updatePokeData() {
@@ -82,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             weight = String.valueOf(jsonObj.get("weight"));
             image_url = (String) jsonObj.get("image_url");
             System.out.println("UpdatePokeData Finished");
-            goToPokeInfoPageWithData();
         } catch (JSONException e) {
             System.out.println("UpdatePokeData Failed");
             throw new RuntimeException(e);
