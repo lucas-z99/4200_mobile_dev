@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,10 +24,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    int pokemonId = 5;  // Keeps track of current pokemon, default 1
+    int pokemonId = 1;  // Keeps track of current pokemon, default 1
     String name;
     String type1;
     String type2;
@@ -35,16 +37,67 @@ public class MainActivity extends AppCompatActivity {
     String weight;
     String image_url;
     String jsonResponse;
-    ImageView pokeImage;
-    TextView pokeName;
+    ImageView poke_image;
+    TextView poke_name;
+    ImageView get_info_btn;
+    ImageView left_btn;
+    ImageView right_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokedex_intro);
-        pokeImage = findViewById(R.id.pokeImage);
-        pokeName = findViewById(R.id.pokeName);
+        poke_image = findViewById(R.id.pokeImage);
+        poke_name = findViewById(R.id.pokeName);
+        right_btn = findViewById(R.id.right_btn);
+        left_btn = findViewById(R.id.left_btn);
+        get_info_btn = findViewById(R.id.get_info_btn1);
         fetchAndSetPokemonData(pokemonId);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
+        setViews();
+
+        right_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pokemonId < 151){
+                    pokemonId += 1;
+                    fetchAndSetPokemonData(pokemonId);
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    setViews();
+                }
+            }
+        });
+
+        left_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pokemonId > 1){
+                    pokemonId -= 1;
+                    fetchAndSetPokemonData(pokemonId);
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    setViews();
+                }
+            }
+        });
+
+        get_info_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPokeInfoPageWithData();
+            }
+        });
 
     }
 
@@ -52,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
         PokeServer.getPokemon(id, this::onSuccess, this::onFail);
     }
 
+    public void setViews(){
+        poke_name.setText(name);
+        Picasso.get()
+                .load(image_url)
+                .into(poke_image);
+    }
 
     // For keeping track of pokemon data across pages.
     public void goToPokeInfoPageWithData(){
