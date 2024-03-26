@@ -2,6 +2,7 @@ package com.example.a4200_group_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,12 +58,13 @@ public class PokemonInfo extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainPage = new Intent(PokemonInfo.this, MainActivity.class);
-                startActivity(mainPage);
+//                Intent mainPage = new Intent(PokemonInfo.this, MainActivity.class);
+//                startActivity(mainPage);
+
+                finish();
             }
         });
     }
-
 
     public void setPokemonDataToView() throws IOException {
         Intent intent = getIntent();
@@ -81,5 +83,6 @@ public class PokemonInfo extends AppCompatActivity {
         Picasso.get()
                 .load(extras.getString("image_url", null))
                 .into(pokeImage);
+
     }
 }
