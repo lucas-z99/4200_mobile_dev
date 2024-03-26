@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ public class PokemonInfo extends AppCompatActivity {
     TextView pokeHeight;
     TextView pokeWeight;
 
+    ImageView backArrow;
 
 
     @Override
@@ -42,16 +45,16 @@ public class PokemonInfo extends AppCompatActivity {
         pokeName = findViewById(R.id.pokeName);
         pokeType1 = findViewById(R.id.pokeType1);
         pokeType2 = findViewById(R.id.pokeType2);
-        pokeHeight = findViewById(R.id.height);
+        pokeHeight = findViewById(R.id.pokeHeight);
         pokeWeight = findViewById(R.id.pokeWeight);
-
+        backArrow = findViewById(R.id.back_btn);
         try {
             setPokemonDataToView();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        pokeImage.setOnClickListener(new View.OnClickListener() {
+        backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mainPage = new Intent(PokemonInfo.this, MainActivity.class);
