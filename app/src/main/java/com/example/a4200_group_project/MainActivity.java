@@ -1,31 +1,17 @@
 package com.example.a4200_group_project;
 
-import static android.provider.MediaStore.Images.Media.getBitmap;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView left_btn;
     ImageView right_btn;
 
-    ImageView  mapButton;
+    ImageView mapButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,27 +45,16 @@ public class MainActivity extends AppCompatActivity {
         left_btn = findViewById(R.id.left_btn);
         get_info_btn = findViewById(R.id.get_info_btn1);
         mapButton = findViewById(R.id.map_button);
-        fetchAndSetPokemonData(pokemonId);
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
-        setViews();
+
+        ChoosePokemon(pokemonId);
+
 
         right_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pokemonId < 151){
-                    pokemonId += 1;
-                    fetchAndSetPokemonData(pokemonId);
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    setViews();
+                if (pokemonId < 151) {
+                    ChoosePokemon(++pokemonId);
                 }
             }
         });
@@ -86,15 +62,8 @@ public class MainActivity extends AppCompatActivity {
         left_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pokemonId > 1){
-                    pokemonId -= 1;
-                    fetchAndSetPokemonData(pokemonId);
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    setViews();
+                if (pokemonId > 1) {
+                    ChoosePokemon(--pokemonId);
                 }
             }
         });
@@ -116,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void fetchAndSetPokemonData(int id){
-        PokeServer.getPokemon(id, this::onSuccess, this::onFail);
+    public void ChoosePokemon(int id) {
+        PokeServer.getPokemon(id, this::UpdateUI, this::onFail);
     }
 
-    public void setViews(){
+    public void setViews() {
         poke_name.setText(name);
         Picasso.get()
                 .load(image_url)
@@ -128,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // For keeping track of pokemon data across pages.
-    public void goToPokeInfoPageWithData(){
+    public void goToPokeInfoPageWithData() {
         Intent pokeInfoPage = new Intent(this, PokemonInfo.class);
         pokeInfoPage.putExtra("name", name);
         pokeInfoPage.putExtra("id", pokemonId);
@@ -142,11 +111,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Update Pokemon date on successful request
-    void onSuccess(String content) {
+    void UpdateUI(String content) {
         System.out.println("  ----------   success  ----------\n");
         System.out.println(content);
+
         jsonResponse = content;
         updatePokeData();
+
+        runOnUiThread(this::setViews); // so we don't block main thread
     }
 
     public void updatePokeData() {
@@ -169,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     void onFail(Exception e) {
         System.out.println("  ----------   fail   ----------\n");
         e.printStackTrace();
