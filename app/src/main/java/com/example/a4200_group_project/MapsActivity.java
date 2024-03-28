@@ -57,9 +57,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Set the marker click listener
         mMap.setOnMarkerClickListener(marker -> {
-            Toast.makeText(MapsActivity.this, marker.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MapsActivity.this, "You have found a new pokemon!", Toast.LENGTH_SHORT).show();
             // Performs the going to pokedex image page on click
-            Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+            Random rand = new Random();
+            int randomID = rand.nextInt(152);
+            intent.putExtra("pokemonId", randomID);
             startActivity(intent);
             return false;
         });

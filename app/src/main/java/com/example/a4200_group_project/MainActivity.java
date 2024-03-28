@@ -25,6 +25,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        pokemonId = intent.getIntExtra("pokemonId", 1);
         setContentView(R.layout.pokedex_intro);
         poke_image = findViewById(R.id.pokeImage);
         poke_name = findViewById(R.id.pokeName);
