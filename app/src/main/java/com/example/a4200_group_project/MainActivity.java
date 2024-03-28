@@ -26,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+
 public class MainActivity extends AppCompatActivity {
 
     int pokemonId = 1;  // Keeps track of current pokemon, default 1
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView get_info_btn;
     ImageView left_btn;
     ImageView right_btn;
+
+    ImageView  mapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         right_btn = findViewById(R.id.right_btn);
         left_btn = findViewById(R.id.left_btn);
         get_info_btn = findViewById(R.id.get_info_btn1);
+        mapButton = findViewById(R.id.map_button);
         fetchAndSetPokemonData(pokemonId);
         try {
             TimeUnit.SECONDS.sleep(1);
@@ -96,6 +100,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToPokeInfoPageWithData();
+            }
+        });
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PokedexIntroActivity.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
 

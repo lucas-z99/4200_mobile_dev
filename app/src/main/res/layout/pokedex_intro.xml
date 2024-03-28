@@ -198,9 +198,19 @@
                         android:layout_height="match_parent"
                         android:importantForAccessibility="no"
                         android:src="@drawable/centre_dpad" />
+
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/map_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/map_icon"
+                android:contentDescription="map button"/>
 
             <ImageView
                 android:id="@+id/get_info_btn"
@@ -215,6 +225,7 @@
                 app:srcCompat="@drawable/pokeball_small" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
