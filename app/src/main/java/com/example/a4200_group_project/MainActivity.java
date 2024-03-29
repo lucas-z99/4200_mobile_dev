@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView right_btn;
 
     ImageView mapButton;
+
+    static boolean flag_cache;
+    List<Integer> cached_id = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +89,57 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //
+        if (!flag_cache) {
+            flag_cache = true;
+
+            for (int i = 1; i < 30; i++) {
+                PokeServer.getPokemon(i, this::fun, this::onFail);
+
+//                if (i % 30 == 0)
+//                    try {
+//                        TimeUnit.SECONDS.sleep(3);
+//                    } catch (RuntimeException | InterruptedException e) {
+//                        //
+//                    }
+            }
+        }
+    }
+
+
+    public void fun(String content) {
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = new JSONObject(content);
+            int id = (int) jsonObj.get("id");
+            String url = (String) jsonObj.get("image_url");
+
+            if (cached_id.contains(id))
+                return;
+
+            cached_id.add(id);
+            System.out.println("AWS server return: " + id); // debug
+
+            Picasso.get()
+                    .load(url)
+                    .fetch(new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            System.out.println("Piccaso cache complete");
+                            //do nothing
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            //do nothing
+                        }
+                    });
+
+
+        } catch (JSONException e) {
+//
+        }
 
     }
 

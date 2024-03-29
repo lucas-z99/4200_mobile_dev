@@ -62,6 +62,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Intent intent = new Intent(MapsActivity.this, MainActivity.class);
             Random rand = new Random();
             int randomID = rand.nextInt(152);
+//            int randomID = rand.nextInt(29);
             intent.putExtra("pokemonId", randomID);
             startActivity(intent);
             return false;
